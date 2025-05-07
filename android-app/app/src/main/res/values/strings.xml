@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">lovebike</string>
+    <string name="start_ride">라이딩 시작</string>
+    <string name="stop_ride">라이딩 종료</string>
+    <string name="default_timer">00:00</string>
+
+</resources>
