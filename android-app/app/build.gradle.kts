@@ -50,6 +50,12 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation ("androidx.camera:camera-core:1.3.0")
+    implementation ("androidx.camera:camera-camera2:1.3.0")
+    implementation ("androidx.camera:camera-lifecycle:1.3.0")
+    implementation ("androidx.camera:camera-view:1.3.0")
+    implementation ("androidx.camera:camera-extensions:1.3.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,6 +67,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
