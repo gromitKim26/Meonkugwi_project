@@ -1,6 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.techtown.lovebike"> <!-- 패키지 추가 -->
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- 패키지 추가 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,11 +11,17 @@
     <application
         android:supportsRtl="true"
         android:theme="@style/Theme.Lovebike">
+
+        <activity
+            android:name=".OwnerFaceActivity"
+            android:exported="false" />
+
+        <activity android:name=".ParkingMapActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBZmbsUpURvPkh6TWeiQCHyAhkYhluQNfk" />
 
-        <!-- 메인 액티비티 -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,11 +31,8 @@
             </intent-filter>
         </activity>
 
-        <!-- 라이딩 화면 -->
         <activity android:name=".TrackingActivity" />
         <activity android:name=".HistoryActivity" />
-
-        <activity android:name=".OwnerFaceActivity" />
         <activity android:name=".WatchVideoActivity" />
 
         <service
