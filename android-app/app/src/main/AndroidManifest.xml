@@ -28,10 +28,9 @@
 
         <activity android:name=".TrackingActivity" />
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".OwnerFaceActivity" />
         <activity android:name=".WatchVideoActivity" />
         <activity android:name=".ParkingMapActivity" />
-        <activity android:name=".ui.theme.OwnerFaceActivity" android:exported="false" />
+        <activity android:name=".OwnerFaceActivity" android:exported="false" />
 
         <!-- FCM 서비스 -->
         <service
