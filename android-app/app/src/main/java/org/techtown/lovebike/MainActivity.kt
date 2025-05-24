@@ -22,6 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         val btnStartRide = findViewById<Button>(R.id.btn_start_ride)
         val btnViewHistory = findViewById<Button>(R.id.btn_view_history)
+        val btnFindParking = findViewById<Button>(R.id.btnFindParking)
+
+        btnFindParking.setOnClickListener {
+            val intent = Intent(this, ParkingMapActivity::class.java)
+            startActivity(intent)
+        }
+
 
         btnStartRide.setOnClickListener {
             val intent = Intent(this, TrackingActivity::class.java)

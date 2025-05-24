@@ -25,5 +25,15 @@
         android:id="@+id/btn_view_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="라이딩 기록 확인" />
+        android:text="라이딩 기록 확인"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnFindParking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내 근처 자전거 주차장 찾기"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

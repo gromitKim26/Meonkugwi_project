@@ -5,10 +5,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import kotlinx.coroutines.launch
 import org.techtown.lovebike.data.AppDatabase
 import java.util.Calendar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
 
 class HistoryActivity : AppCompatActivity() {
 
@@ -34,12 +36,7 @@ class HistoryActivity : AppCompatActivity() {
 
         // Room DB 불러와서 기록 표시 (비동기 처리 필수)
         lifecycleScope.launch {
-            val db = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java,
-                name = "ride_database"
-            ).build()
-
+            val db = AppDatabase.getInstance(applicationContext)
             val records = db.rideRecordDao().getAllRecords()
 
             if (records.isNotEmpty()) {
@@ -57,13 +54,12 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun showRideRecordForDate(selectedDate: String) {
         lifecycleScope.launch {
-            val db = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java,
-                name = "ride_database"
-            ).build()
+            val db = AppDatabase.getInstance(applicationContext)
 
-            val records = db.rideRecordDao().getRecordsByDate(selectedDate)
+            // ❗ withContext로 IO 스레드로 넘겨야 함
+            val records = withContext(Dispatchers.IO) {
+                db.rideRecordDao().getRecordsByDate(selectedDate)
+            }
 
             if (records.isNotEmpty()) {
                 val record = records.last()
@@ -77,6 +73,8 @@ class HistoryActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
