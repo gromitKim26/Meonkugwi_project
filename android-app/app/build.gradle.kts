@@ -59,6 +59,7 @@ dependencies {
     implementation ("androidx.camera:camera-view:1.3.0")
     implementation ("androidx.camera:camera-extensions:1.3.0")
     implementation ("androidx.exifinterface:exifinterface:1.3.6")
+    implementation(libs.firebase.messaging.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -83,6 +84,7 @@ dependencies {
 
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
