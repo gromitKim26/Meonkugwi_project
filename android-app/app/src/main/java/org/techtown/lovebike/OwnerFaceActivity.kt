@@ -19,6 +19,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
+import android.content.Intent
 
 class OwnerFaceActivity : AppCompatActivity() {
     private lateinit var previewView: PreviewView
@@ -47,6 +48,11 @@ class OwnerFaceActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnUpload).setOnClickListener {
             capturedBitmap?.let { uploadImage(it) }
                 ?: Toast.makeText(this, "사진 없음", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnTestVideo)?.setOnClickListener {
+            val intent = Intent(this, WatchVideoActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -84,7 +90,20 @@ class OwnerFaceActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    capturedBitmap = BitmapFactory.decodeFile(outputFile.absolutePath)
+                    val exif = androidx.exifinterface.media.ExifInterface(outputFile.absolutePath)
+                    val orientation = exif.getAttributeInt(
+                        androidx.exifinterface.media.ExifInterface.TAG_ORIENTATION,
+                        androidx.exifinterface.media.ExifInterface.ORIENTATION_NORMAL
+                    )
+
+                    val bitmap = BitmapFactory.decodeFile(outputFile.absolutePath)
+                    capturedBitmap = when (orientation) {
+                        androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90f)
+                        androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(bitmap, 180f)
+                        androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(bitmap, 270f)
+                        else -> bitmap
+                    }
+
                     Toast.makeText(this@OwnerFaceActivity, "촬영 완료", Toast.LENGTH_SHORT).show()
                 }
 
@@ -93,6 +112,12 @@ class OwnerFaceActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    private fun rotateBitmap(bitmap: Bitmap, degrees: Float): Bitmap {
+        val matrix = android.graphics.Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 
     private fun uploadImage(bitmap: Bitmap) {

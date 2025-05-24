@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import org.techtown.lovebike.OwnerFaceActivity
+import com.google.firebase.messaging.FirebaseMessaging
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +32,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("alert")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FCM", "🚨 도난 알림 토픽 구독 완료")
+                } else {
+                    Log.e("FCM", "❌ 도난 알림 토픽 구독 실패")
+                }
+            }
 
     }
 }

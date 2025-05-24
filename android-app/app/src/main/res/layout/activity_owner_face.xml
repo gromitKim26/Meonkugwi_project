@@ -24,4 +24,11 @@
         android:text="서버로 업로드"
         android:layout_marginTop="12dp"/>
 
+    <Button
+        android:id="@+id/btnTestVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="도난 영상 보기"
+        android:layout_marginTop="12dp"/>
+
 </LinearLayout>
